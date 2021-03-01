@@ -26,20 +26,13 @@ transitions = [
         origin=Welcome,
         factory=trg.Action.builder('start'),
     ),
-    # Create state for no_start
+    # The user decides not to play
     Tr(
         dest=Quit,
         origin=Welcome,
         factory=trg.Action.builder('no_start'),
     ),
-    # Check the answer when launched photo
-    Tr(
-        dest=Check_again, 
-        origin=Guess, 
-        factory=RocketLaunched.builder(is_finished=False)
-    ),
-
-    # Check the answer when not launched photo
+    # After the guessing first step, it goes to Check_again
     Tr(
         dest=Check_again, 
         origin=Guess, 
@@ -60,14 +53,14 @@ transitions = [
         factory= RocketLaunched.builder(is_finished=True)
     ),           
     
-    # Restart
+    # Restart after finishing
     Tr(
         dest=Welcome,
         origin=Finish,
         factory=trg.Action.builder('restart'),
     ),
 
-    # Quit from Finish state
+    # Quit the game when finishing
     Tr(
         dest=Quit,
         origin=Finish,

@@ -1,6 +1,6 @@
 def bisect(left_index, right_index):
     """
-    Runs a bisection and returns the new frame
+    Runs a bisection and returns the new frame using the current indexes. 
 
     """
     #Calculate the number of frames

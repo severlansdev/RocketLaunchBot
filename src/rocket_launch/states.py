@@ -61,7 +61,7 @@ class RocketLaunchState(BaseState):
 
 class Welcome(RocketLaunchState):
     """
-    Welcome state, asks the user to start guessing
+    Welcome state, asks the user to start guessing. If not, it will enter the Quit State
     """
 
     @page_view('/bot/welcome')
@@ -83,7 +83,8 @@ class Welcome(RocketLaunchState):
 
 class Guess(RocketLaunchState):
     """
-    Shows the user an image, and the user must decide if the rocket has launched yet 
+    First state for guessing, obtains the information about the video and configures the indexes. 
+    Shows the user an image, and the user must decide if the rocket has launched yet or not. 
     """
 
     @page_view('/bot/guess')
@@ -97,7 +98,7 @@ class Guess(RocketLaunchState):
             # Set context of indexes and frames for the video 
             context['left_index'] = 0
             context['right_index'] = frames - 1
-            # Get the new frame to show
+            # Get the new frame to show using the bisection method
             context['left_index'], context['right_index'], frame_number = bisect(int(context.get('left_index')), int(context.get('right_index')))
             print("Frame number:", frame_number)
             context['frame_number'] = frame_number
@@ -130,7 +131,8 @@ class Guess(RocketLaunchState):
 
 class Check_again(RocketLaunchState):
     """
-    Checks the answers of the users and decides the next image to show the user 
+    Checks the answers of the users and decides the next image to show the user modifying the indexes
+    Uses the bisection method. This state is where all the next guesses are done.  
     """
 
     @page_view('/bot/check-again')
@@ -155,11 +157,13 @@ class Check_again(RocketLaunchState):
         # right_index = context.get('right_index')
 
         # Changing the indexes for the new bisection
+        # When the rocket launched 
         if option == 'launched':
             print('Launched')
             context['right_index'] = frame_number
             context['left_index'], context['right_index'], new_frame_number = bisect(context.get('left_index'),context.get('right_index'))
             context['frame_number'] = new_frame_number
+        # When the rocket  not launched    
         else:
            print('Not launched')
            context['left_index'] = frame_number
@@ -191,7 +195,7 @@ class Check_again(RocketLaunchState):
 
 class Finish(RocketLaunchState):
     """
-    Congratulate the user for finding the correct date and propose to start again
+    Congratulate the user for finding the correct frame and propose to start again
     """
     @page_view('/bot/congrats')
     @cs.inject()
@@ -213,7 +217,7 @@ class Finish(RocketLaunchState):
 
 class Quit(RocketLaunchState):
     """
-    Skip the conversation, when the user does not want to play
+    Skip the conversation, when the user does not want to play for the first time or again after finishing. 
     """
     @page_view('/bot/quit')
     async def handle(self) -> None:

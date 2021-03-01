@@ -9,11 +9,12 @@ from .store import (
     cs,
 )
 
-
 class RocketLaunched(BaseTrigger):
     """
-    This trigger will try choose the images to show.  The method to detect the next images uses the
-    bisection method. The 'is_finished' parameter allow the trigger to activate to return the guessed date
+    This trigger will determine when the guessing is finished.
+    The 'is_finished' parameter allow the trigger to activate to return the guessed frame. 
+    We will check the difference between both of the indexes, in order to compare them. 
+    When both indexes are in the same place, the guessing is finished. 
     """
 
     def __init__(self, request, is_finished):
