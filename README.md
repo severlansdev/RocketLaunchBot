@@ -6,7 +6,7 @@ Welcome to Rocket Launch Telegram Bot!
 
 We have a video of a rocket launch and we want to know at which frame exactly is the rocket launched using a **Telegram Bot** and the **BERNARD** framework.
 
-![alt text](https://github.com/PilarHB/TelegramRocketLaunch/images/FSM_Diagram.png?raw=true)
+![alt text](https://github.com/PilarHB/TelegramRocketLaunch/images/FSM_Diagram.png)
 
 ## Configuration
 
