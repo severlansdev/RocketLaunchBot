@@ -36,9 +36,9 @@ And that's it! You should be able to use your bot.
 * **transitions.py**: Defines all the possible transitions between states in or FSM
 * **frames.py**: Useful methods to obtain frame information. 
 * **bisection.py**: Performs the bisection for the new frame
-* **environment.py**: Contains the Video Variables. 
+* **environment.py**: Contains the Video Variables.   
 * **trigger.py**: Detects when the guessing is done using `is_finished`parameter. Once the guessig is finished the result is displayed.  
 
 2. Inside the i18/end folder we can find the following:
-* **intents.csv**: File for understanding possible different answers from the user
-* **responses.cv**: Contains all the pre-defined responses for our bot. 
+* **intents.csv**: File for understanding possible different answers from the user  
+* **responses.cv**: Contains all the pre-defined responses for our bot.   
