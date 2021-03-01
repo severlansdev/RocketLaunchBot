@@ -23,7 +23,7 @@ To run this code it is higly recommended to follow the next steps
   - Set the **BIND_PORT**=8443 Use one of the ports abailable for Telegram
   - Set the **BERNARD_BASE_URL** (the public URL from Ngrok)
 8. Run the program. In the main folder, run the commands
-   -  `source ./env`   
+  -  `source ./env`   
   -  `./manage.py run`
   
 And that's it! You should be able to use your bot. 
