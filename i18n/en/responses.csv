@@ -1,0 +1,15 @@
+ERROR,Woops. Something went wrong.
+CONFUSED,It seems that I can't understand what you're saying. Please try another way to say it.
+HELLO,Hello!
+WELCOME,{name} Are you ready to start guessing?
+GUESS,{name} Did the rocket launch yet?
+FINISH, The launched was achieved at {frame_number}
+LAUNCHED,Yes
+NOT_LAUNCHED,No 
+MORE,Next pic
+PLAY_AGAIN, Would you like to restart the game?
+GOODBYE, Goodbye {name}
+START_PLAY,Let's play!
+QUIT_PLAY,Not now
+VIDEO_ERROR,No information can be shown
+

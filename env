@@ -1,0 +1,15 @@
+# This is a file holding the environment variables to configure your project.
+# feel free to change them according to your actual configuration. In order to
+# load the variables in your shell, please type `source env`. If you're using
+# PyCharm, you can use the "Env File" plugin to load this file automatically
+# into your running environment.
+
+set -a
+
+DEBUG=yes
+
+BERNARD_SETTINGS_FILE=/home/pilar/caso_tmc/solution/dev/rocket_launch/src/rocket_launch/settings.py
+BERNARD_BASE_URL=https://c8c8642fe38e.ngrok.io
+WEBVIEW_SECRET_KEY=M3JMt157idYXA_b7YU4J7GrZBbA8CQoVsO/fgFT/VRLR]IrOeZ
+BIND_PORT=8443
+TELEGRAM_TOKEN=1682407837:AAGebC0VzTEz6DgmXRGLjZvzRIUTgnAkgQo
