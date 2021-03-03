@@ -13,20 +13,32 @@ We have a video of a rocket launch and we want to know at which frame exactly is
 To run this code it is higly recommended to follow the next steps
 1. Use a virtual environment suchs as **Virtualenv**. Configure the environment with **Python3.6** and **Pip=9.0.3**
 2. Install Bernard in the environment. If you require help to continue, please refer to [BERNARD's documentation](https://github.com/BernardFW/bernard). 
-3. A Redis database is required, so it will be necessary to start it using  `redis-server`
-4. The bot needs a Public URL. **Ngrok** is the solution `./ngrok http 8443`. Note: Port 8443 is one of the available ports for Telegram. 
-5. Create your Bernard project:
-  -  `bernard start_project rocket_launch ./dev/rocket_launch`
+3. A Redis database is required, so it will be necessary to start it using
+   ```sh
+      redis-server
+    ``` 
+5. The bot needs a Public URL. **Ngrok** is the solution. Note: Port 8443 is one of the available ports for Telegram.
+    ```sh
+      ./ngrok http 8443
+    ```  
+7. Create your Bernard project:
+    ```sh
+      bernard start_project rocket_launch ./dev/rocket_launch
+    ``` 
 6. Create your Bot using BotFather in Telegram [Telegram Bot's documentation](https://core.telegram.org/bots) 
 7. Configure you env file:
   - Set the **TELEGRAM_TOKEN** token obtained from BotFather (mandatory to use that name)
   - Set the **BIND_PORT**=8443 Use one of the ports abailable for Telegram
   - Set the **BERNARD_BASE_URL** (the public URL from Ngrok)
 8. Run the program. In the main folder, run the commands
-  -  `source ./env`   
-  -  `./manage.py run`
-  
+    ```sh
+      source ./env
+      ./manage.py run
+    ```  
+
 And that's it! You should be able to use your bot. 
+
+
   
 ## System description
 
