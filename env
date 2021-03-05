@@ -8,8 +8,8 @@ set -a
 
 DEBUG=yes
 
-BERNARD_SETTINGS_FILE=/home/pilar/caso_tmc/solution/dev/rocket_launch/src/rocket_launch/settings.py
+BERNARD_SETTINGS_FILE=/home/dev/rocket_launch/src/rocket_launch/settings.py
 BERNARD_BASE_URL=https://c8c8642fe38e.ngrok.io
-WEBVIEW_SECRET_KEY=M3JMt157idYXA_b7YU4J7GrZBbA8CQoVsO/fgFT/VRLR]IrOeZ
+WEBVIEW_SECRET_KEY=WHATEVER
 BIND_PORT=8443
-TELEGRAM_TOKEN=1682407837:AAGebC0VzTEz6DgmXRGLjZvzRIUTgnAkgQo
+TELEGRAM_TOKEN=WHATEVER
