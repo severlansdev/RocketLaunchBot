@@ -9,7 +9,7 @@ set -a
 DEBUG=yes
 
 BERNARD_SETTINGS_FILE=/home/dev/rocket_launch/src/rocket_launch/settings.py
-BERNARD_BASE_URL=https://c8c8642fe38e.ngrok.io
+BERNARD_BASE_URL=https://.ngrok.io
 WEBVIEW_SECRET_KEY=WHATEVER
 BIND_PORT=8443
 TELEGRAM_TOKEN=WHATEVER
