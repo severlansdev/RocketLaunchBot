@@ -1,35 +1,20 @@
 # coding: utf-8
-from random import (
-    SystemRandom,
-)
+from random import SystemRandom
 
-from bernard import (
-    layers as lyr,
-)
-from bernard.analytics import (
-    page_view,
-)
-from bernard.engine import (
-    BaseState,
-)
-from bernard.i18n import (
-    intents as its,
-    translate as t,
-)
-from bernard.platforms.telegram import (
-    layers as tl,
-    media as media
-)
+from bernard import layers as lyr
+from bernard.analytics import page_view
+from bernard.engine import BaseState
+from bernard.i18n import intents as its, translate as t
 
-from .store import (
-    cs,
-)
+from bernard.platforms.telegram import layers as tl, media as media
+from .store import cs
 
 from bernard.media.base import UrlMedia
-from .frames import  get_video_url, get_frame_url, get_video_information
+from .frames import get_video_url, get_frame_url, get_video_information
 from .bisection import bisect
 
 random = SystemRandom()
+
 
 class RocketLaunchState(BaseState):
     """
@@ -59,6 +44,7 @@ class RocketLaunchState(BaseState):
     async def handle(self) -> None:
         raise NotImplementedError
 
+
 class Welcome(RocketLaunchState):
     """
     Welcome state, asks the user to start guessing. If not, it will enter the Quit State
@@ -73,13 +59,14 @@ class Welcome(RocketLaunchState):
             tl.InlineKeyboard([
                 [tl.InlineKeyboardCallbackButton(
                     text=t.START_PLAY,
-                    payload={'action':'start'})],
+                    payload={'action': 'start'})],
                 [tl.InlineKeyboardCallbackButton(
                     text=t.QUIT_PLAY,
-                    payload={'action':'no_start'})]
+                    payload={'action': 'no_start'})]
 
             ])
         )
+
 
 class Guess(RocketLaunchState):
     """
@@ -93,16 +80,17 @@ class Guess(RocketLaunchState):
         name = await self.request.user.get_friendly_name()
         # Get information about the images from the video
         frames = get_video_information()
-        
-        if frames:         
-            # Set context of indexes and frames for the video 
+
+        if frames:
+            # Set context of indexes and frames for the video
             context['left_index'] = 0
             context['right_index'] = frames - 1
             # Get the new frame to show using the bisection method
-            context['left_index'], context['right_index'], frame_number = bisect(int(context.get('left_index')), int(context.get('right_index')))
+            context['left_index'], context['right_index'], frame_number = bisect(
+                int(context.get('left_index')), int(context.get('right_index')))
             print("Frame number:", frame_number)
             context['frame_number'] = frame_number
-            
+
             self.send(
                 lyr.Text(t('GUESS', name=name)),
                 lyr.Text(get_frame_url(frame_number=frame_number)),
@@ -110,24 +98,25 @@ class Guess(RocketLaunchState):
                     [tl.InlineKeyboardCallbackButton(
                         text=t.LAUNCHED,
                         payload={
-                            'action':'choose_option',
-                            'option':'launched'
-                        }    
+                            'action': 'choose_option',
+                            'option': 'launched'
+                        }
                     )],
                     [tl.InlineKeyboardCallbackButton(
                         text=t.NOT_LAUNCHED,
                         payload={
-                            'action':'choose_option',
-                            'option':'not_launched'
+                            'action': 'choose_option',
+                            'option': 'not_launched'
                         }
 
                     )]
                 ])
             )
-        else:             
+        else:
             self.send(
                 lyr.Text(t('VIDEO_ERROR')),
-            ) 
+            )
+
 
 class Check_again(RocketLaunchState):
     """
@@ -144,54 +133,56 @@ class Check_again(RocketLaunchState):
         except KeyError:
             self.send(
                 lyr.Text(t('VIDEO_ERROR')),
-            ) 
+            )
             return
         else:
             frame_number = context.get('frame_number')
             print('Frame_number:', frame_number)
             option = payload.get('option', 'launched')
-            print("Option:", option)    
-        
+            print("Option:", option)
+
         name = await self.request.user.get_friendly_name()
         # left_index = context.get('left_index')
         # right_index = context.get('right_index')
 
         # Changing the indexes for the new bisection
-        # When the rocket launched 
+        # When the rocket launched
         if option == 'launched':
             print('Launched')
             context['right_index'] = frame_number
-            context['left_index'], context['right_index'], new_frame_number = bisect(context.get('left_index'),context.get('right_index'))
+            context['left_index'], context['right_index'], new_frame_number = bisect(
+                context.get('left_index'), context.get('right_index'))
             context['frame_number'] = new_frame_number
-        # When the rocket  not launched    
+        # When the rocket  not launched
         else:
-           print('Not launched')
-           context['left_index'] = frame_number
-           context['left_index'], context['right_index'], new_frame_number = bisect(context.get('left_index'),context.get('right_index'))
-           context['frame_number'] = new_frame_number   
-        
-        self.send(
-                lyr.Text(t('GUESS', name=name)),
-                lyr.Text(get_frame_url(frame_number=new_frame_number)),
-                tl.InlineKeyboard([
-                    [tl.InlineKeyboardCallbackButton(
-                        text=t.LAUNCHED,
-                        payload={
-                            'action':'choose_option',
-                            'option':'launched'
-                        }    
-                    )],
-                    [tl.InlineKeyboardCallbackButton(
-                        text=t.NOT_LAUNCHED,
-                        payload={
-                            'action':'choose_option',
-                            'option':'not_launched'
-                        }
+            print('Not launched')
+            context['left_index'] = frame_number
+            context['left_index'], context['right_index'], new_frame_number = bisect(
+                context.get('left_index'), context.get('right_index'))
+            context['frame_number'] = new_frame_number
 
-                    )]
-                ])
-            )
-       
+        self.send(
+            lyr.Text(t('GUESS', name=name)),
+            lyr.Text(get_frame_url(frame_number=new_frame_number)),
+            tl.InlineKeyboard([
+                [tl.InlineKeyboardCallbackButton(
+                    text=t.LAUNCHED,
+                    payload={
+                        'action': 'choose_option',
+                        'option': 'launched'
+                    }
+                )],
+                [tl.InlineKeyboardCallbackButton(
+                    text=t.NOT_LAUNCHED,
+                    payload={
+                        'action': 'choose_option',
+                        'option': 'not_launched'
+                    }
+
+                )]
+            ])
+        )
+
 
 class Finish(RocketLaunchState):
     """
@@ -199,21 +190,22 @@ class Finish(RocketLaunchState):
     """
     @page_view('/bot/congrats')
     @cs.inject()
-    async def handle(self,context) -> None:
+    async def handle(self, context) -> None:
         # name = await self.request.user.get_friendly_name()
         frame_number = context.get('frame_number')
         self.send(
-                lyr.Text(t('FINISH', frame_number=frame_number)),
-                tl.InlineKeyboard([
+            lyr.Text(t('FINISH', frame_number=frame_number)),
+            tl.InlineKeyboard([
                 [tl.InlineKeyboardCallbackButton(
                     text=t.PLAY_AGAIN,
-                    payload={'action':'restart'})],
+                    payload={'action': 'restart'})],
                 [tl.InlineKeyboardCallbackButton(
                     text=t.QUIT_PLAY,
-                    payload={'action':'no_restart'})]
+                    payload={'action': 'no_restart'})]
 
-                ])
-            )
+            ])
+        )
+
 
 class Quit(RocketLaunchState):
     """
@@ -223,5 +215,5 @@ class Quit(RocketLaunchState):
     async def handle(self) -> None:
         name = await self.request.user.get_friendly_name()
         self.send(
-                lyr.Text(t('GOODBYE', name=name)),
-            )            
+            lyr.Text(t('GOODBYE', name=name)),
+        )

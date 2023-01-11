@@ -1,11 +1,6 @@
 # coding: utf-8
-from os import (
-    getenv,
-    path,
-)
-from urllib.parse import (
-    urlparse,
-)
+from os import getenv, path
+from urllib.parse import urlparse
 
 
 def extract_domain(var_name, output):

@@ -1,13 +1,7 @@
-from bernard import (
-    layers as lyr,
-)
-from bernard.engine.triggers import (
-    BaseTrigger,
-)
+from bernard import layers as lyr
+from bernard.engine.triggers import BaseTrigger
+from .store import cs
 
-from .store import (
-    cs,
-)
 
 class RocketLaunched(BaseTrigger):
     """
