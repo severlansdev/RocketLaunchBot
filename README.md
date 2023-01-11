@@ -12,27 +12,27 @@ To run this code it is recommended to follow the following steps
 1. Use a virtual environment such as **Virtualenv**. Configure the environment with **Python3.6** and **Pip=9.0.3**.
 2. Install Bernard in the environment. If you need help to continue, refer to the [BERNARD documentation](https://github.com/BernardFW/bernard). 
 3. A Redis database is required, so you will need to start it using
-   ``sh
+   ````sh
       redis-server
-    ``` 
+    ````
 5. The bot needs a public URL. **Ngrok** is the solution. Note: Port 8443 is one of the available ports for Telegram.
     ````sh
       ./ngrok http 8443
-    ```  
+    ````
 7. Create your Bernard project:
     ````sh
       bernard start_project launch_rocket ./dev/launch_rocket
-    ``` 
+    ````
 6. Create your Bot using BotFather in Telegram [Telegram Bot's documentation](https://core.telegram.org/bots) 
 7. Configure your env file:
   - Set the **TELEGRAM_TOKEN** token obtained from BotFather (mandatory to use that name).
   - Set the **BIND_PORT**=8443 Use one of the available ports for Telegram
   - Set the **BERNARD_BASE_URL** (the public URL of Ngrok)
 8. Run the program. In the main folder, run the commands
-    ``sh
+    ````sh
       source ./env
       ./manage.py run
-    ```  
+    ````
 
  You should be able to use your bot. 
 
